@@ -14,6 +14,12 @@ document.body.appendChild(renderer.domElement);
 const camera = new PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.1, 2000 );
 camera.position.set(0, 1.6, 6);
 
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.screenSpacePanning = true;
 controls.target.set(0, 1, 0);
@@ -66,7 +72,7 @@ function animate() {
   requestAnimationFrame(animate);
   const deltaTime = clock.getDelta();
   if (currentVrm) {
-    const amplitude = 0.15 * Math.PI;
+    const amplitude = 0.2 * Math.PI;
     const s = amplitude * Math.sin(Math.PI * 2 * clock.elapsedTime);
     currentVrm.humanoid.getNormalizedBoneNode('neck').rotation.x = s;
     currentVrm.humanoid.getNormalizedBoneNode('leftShoulder').rotation.z = s;
