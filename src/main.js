@@ -67,13 +67,15 @@ function animate() {
   const deltaTime = clock.getDelta();
   if (currentVrm) {
     const amplitude = 0.15 * Math.PI;
-    const s = amplitude * Math.sin(Math.PI * 2 * clock.elapsedTime)
+    const s = amplitude * Math.sin(Math.PI * 2 * clock.elapsedTime);
     currentVrm.humanoid.getNormalizedBoneNode('neck').rotation.x = s;
     currentVrm.humanoid.getNormalizedBoneNode('leftShoulder').rotation.z = s;
     currentVrm.humanoid.getNormalizedBoneNode('rightShoulder').rotation.z = -s;
     currentVrm.humanoid.getNormalizedBoneNode('hips').rotation.x = -s;
     currentVrm.humanoid.getNormalizedBoneNode('leftUpperLeg').rotation.z = -s - amplitude;
+    currentVrm.humanoid.getNormalizedBoneNode('leftLowerLeg').rotation.x = -s - amplitude;
     currentVrm.humanoid.getNormalizedBoneNode('rightUpperLeg').rotation.z = s + amplitude;
+    currentVrm.humanoid.getNormalizedBoneNode('rightLowerLeg').rotation.x = -s - amplitude;
     currentVrm.update(deltaTime);
   }
   renderer.render(scene, camera);
